@@ -1,0 +1,13 @@
+#ifndef LLVM_LIB_TARGET_ISSNAKE_TARGETINFO_ISSNAKETARGETINFO_H
+#define LLVM_LIB_TARGET_ISSNAKE_TARGETINFO_ISSNAKETARGETINFO_H
+
+namespace llvm {
+
+class Target;
+
+Target &getTheISSnakeTarget();
+
+} // end namespace llvm
+
+#endif // LLVM_LIB_TARGET_ISSNAKE_TARGETINFO_ISSNAKETARGETINFO_H
+
