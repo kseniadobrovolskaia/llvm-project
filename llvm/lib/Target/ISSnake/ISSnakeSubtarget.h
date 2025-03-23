@@ -4,7 +4,9 @@
 #include "ISSnake.h"
 #include "ISSnakeFrameLowering.h"
 #include "ISSnakeISelLowering.h"
+#include "ISSnakeInstrInfo.h"
 #include "ISSnakeRegisterInfo.h"
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -16,6 +18,8 @@ class ISSnakeSubtarget : public ISSnakeGenSubtargetInfo {
   ISSnakeTargetLowering TLInfo;
   ISSnakeFrameLowering FrameLowering;
   ISSnakeRegisterInfo RegInfo;
+  ISSnakeInstrInfo InstrInfo;
+  SelectionDAGTargetInfo TSInfo;
 
 public:
   ISSnakeSubtarget(const Triple &TT, const std::string &CPU,
@@ -38,6 +42,12 @@ public:
   const ISSnakeRegisterInfo *getRegisterInfo() const override {
     ISSNAKE_DUMP_CYAN
     return &RegInfo;
+  }
+
+  const ISSnakeInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+  const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+    ISSNAKE_DUMP_CYAN
+    return &TSInfo;
   }
 };
 
