@@ -22,7 +22,20 @@
 namespace llvm {
 class ISSnakeTargetMachine;
 class FunctionPass;
+class ISSnakeSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
 
+bool lowerISSnakeMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+                                      AsmPrinter &AP);
+bool LowerISSnakeMachineOperandToMCOperand(const MachineOperand &MO,
+                                           MCOperand &MCOp,
+                                           const AsmPrinter &AP);
 FunctionPass *createISSnakeISelDag(ISSnakeTargetMachine &TM,
                                    CodeGenOptLevel OptLevel);
 
