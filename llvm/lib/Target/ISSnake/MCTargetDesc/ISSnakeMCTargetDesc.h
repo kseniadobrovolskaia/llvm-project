@@ -7,5 +7,9 @@
 #define GET_REGINFO_ENUM
 #include "ISSnakeGenRegisterInfo.inc"
 
+// Defines symbolic names for the ISSnake instructions.
+#define GET_INSTRINFO_ENUM
+#include "ISSnakeGenInstrInfo.inc"
+
 #endif // LLVM_LIB_TARGET_ISSNAKE_MCTARGETDESC_ISSNAKEMCTARGETDESC_H
 
