@@ -1,4 +1,5 @@
 #include "ISSnake.h"
+#include "ISSnakeInstPrinter.h"
 #include "ISSnakeMCAsmInfo.h"
 #include "MCTargetDesc/ISSnakeInfo.h"
 #include "TargetInfo/ISSnakeTargetInfo.h"
@@ -51,6 +52,15 @@ static MCAsmInfo *createISSnakeMCAsmInfo(const MCRegisterInfo &MRI,
   return MAI;
 }
 
+static MCInstPrinter *createISSnakeMCInstPrinter(const Triple &T,
+                                                 unsigned SyntaxVariant,
+                                                 const MCAsmInfo &MAI,
+                                                 const MCInstrInfo &MII,
+                                                 const MCRegisterInfo &MRI) {
+  ISSNAKE_DUMP_MAGENTA
+  return new ISSnakeInstPrinter(MAI, MII, MRI);
+}
+
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeISSnakeTargetMC() {
   ISSNAKE_DUMP_MAGENTA
@@ -65,4 +75,8 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeISSnakeTargetMC() {
   // Register the MC subtarget info.
   TargetRegistry::RegisterMCSubtargetInfo(TheISSnakeTarget,
                                           createISSnakeMCSubtargetInfo);
+
+  // Register the MCInstPrinter
+  TargetRegistry::RegisterMCInstPrinter(TheISSnakeTarget,
+                                        createISSnakeMCInstPrinter);
 }
