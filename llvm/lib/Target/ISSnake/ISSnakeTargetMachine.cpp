@@ -1,6 +1,7 @@
 #include "ISSnakeTargetMachine.h"
 #include "ISSnake.h"
 #include "TargetInfo/ISSnakeTargetInfo.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
 
@@ -23,4 +24,25 @@ ISSnakeTargetMachine::ISSnakeTargetMachine(const Target &T, const Triple &TT,
           Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   ISSNAKE_DUMP_CYAN
   initAsmInfo();
+}
+
+namespace {
+
+/// ISSnake Code Generator Pass Configuration Options.
+class ISSnakePassConfig : public TargetPassConfig {
+public:
+  ISSnakePassConfig(ISSnakeTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    ISSNAKE_DUMP_CYAN
+    return false;
+  }
+};
+
+} // end anonymous namespace
+
+TargetPassConfig *ISSnakeTargetMachine::createPassConfig(PassManagerBase &PM) {
+  ISSNAKE_DUMP_CYAN
+  return new ISSnakePassConfig(*this, PM);
 }
