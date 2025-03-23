@@ -22,6 +22,20 @@ enum NodeType : unsigned {
 
 } // namespace ISSnakeISD
 
+class ISSnakeTargetLowering : public TargetLowering {
+public:
+  explicit ISSnakeTargetLowering(const TargetMachine &TM,
+                                 const ISSnakeSubtarget &STI);
+
+  /// This method returns the name of a target specific DAG node.
+  const char *getTargetNodeName(unsigned Opcode) const override;
+
+  ISSnakeSubtarget const &getSubtarget() const { return STI; }
+
+private:
+  const ISSnakeSubtarget &STI;
+};
+
 } // end namespace llvm
 
 #endif // LLVM_LIB_TARGET_ISSNAKE_ISSNAKEISELLOWERING_H

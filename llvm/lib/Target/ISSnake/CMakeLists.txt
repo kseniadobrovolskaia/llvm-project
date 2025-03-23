@@ -17,6 +17,7 @@ add_llvm_target(ISSnakeCodeGen
   ISSnakeSubtarget.cpp
   ISSnakeAsmPrinter.cpp
   ISSnakeISelDagToDag.cpp
+  ISSnakeISelLowering.cpp
 
   LINK_COMPONENTS
   CodeGen

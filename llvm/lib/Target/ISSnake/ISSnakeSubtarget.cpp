@@ -10,9 +10,9 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "ISSnakeGenSubtargetInfo.inc"
 
-ISSnakeSubtarget::ISSnakeSubtarget(const StringRef &CPU,
-                                   const StringRef &TuneCPU,
-                                   const StringRef &FS, const TargetMachine &TM)
-    : ISSnakeGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+ISSnakeSubtarget::ISSnakeSubtarget(const Triple &TT, const std::string &CPU,
+                                   const std::string &FS,
+                                   const TargetMachine &TM)
+    : ISSnakeGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
   ISSNAKE_DUMP_CYAN
 }
