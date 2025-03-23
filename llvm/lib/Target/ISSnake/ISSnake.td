@@ -1,6 +1,7 @@
 include "llvm/Target/Target.td"
 include "ISSnakeRegisterInfo.td"
 include "ISSnakeInstrInfo.td"
+include "ISSnakeCallingConv.td"
  
 class Proc<string Name, list<SubtargetFeature> Features>
  : Processor<Name, NoItineraries, Features>;
