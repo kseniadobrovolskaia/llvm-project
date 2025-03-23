@@ -8,6 +8,8 @@ namespace llvm {
 extern Target TheISSnakeTarget;
 
 class ISSnakeTargetMachine : public CodeGenTargetMachineImpl {
+  std::unique_ptr<TargetLoweringObjectFile> TLOF;
+
 public:
   ISSnakeTargetMachine(const Target &T, const Triple &TT, StringRef CPU,
                        StringRef FS, const TargetOptions &Options,
@@ -16,6 +18,7 @@ public:
                        bool JIT);
   // Pass Pipeline Configuration
   TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
+  TargetLoweringObjectFile *getObjFileLowering() const override;
 };
 } // end namespace llvm
 

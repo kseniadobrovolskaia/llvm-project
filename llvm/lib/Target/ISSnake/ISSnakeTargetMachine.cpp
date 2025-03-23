@@ -1,6 +1,7 @@
 #include "ISSnakeTargetMachine.h"
 #include "ISSnake.h"
 #include "TargetInfo/ISSnakeTargetInfo.h"
+#include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
@@ -19,9 +20,10 @@ ISSnakeTargetMachine::ISSnakeTargetMachine(const Target &T, const Triple &TT,
                                            std::optional<Reloc::Model> RM,
                                            std::optional<CodeModel::Model> CM,
                                            CodeGenOptLevel OL, bool JIT)
-    : CodeGenTargetMachineImpl(
-          T, "e-m:e-p:32:32-i8:8:32-i16:16:32-i64:64-n32", TT, CPU, FS, Options,
-          Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL) {
+    : CodeGenTargetMachineImpl(T, "e-m:e-p:32:32-i8:8:32-i16:16:32-i64:64-n32",
+                               TT, CPU, FS, Options, Reloc::Static,
+                               getEffectiveCodeModel(CM, CodeModel::Small), OL),
+      TLOF(std::make_unique<TargetLoweringObjectFileELF>()) {
   ISSNAKE_DUMP_CYAN
   initAsmInfo();
 }
@@ -50,4 +52,9 @@ public:
 TargetPassConfig *ISSnakeTargetMachine::createPassConfig(PassManagerBase &PM) {
   ISSNAKE_DUMP_CYAN
   return new ISSnakePassConfig(*this, PM);
+}
+
+TargetLoweringObjectFile *ISSnakeTargetMachine::getObjFileLowering() const {
+  ISSNAKE_DUMP_CYAN
+  return TLOF.get();
 }
