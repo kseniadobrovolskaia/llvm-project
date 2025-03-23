@@ -3,6 +3,7 @@
 
 #include "MCTargetDesc/ISSnakeMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Target/TargetMachine.h"
 
 #define ISSNAKE_DUMP(Color)                                                    \
   {                                                                            \
@@ -10,6 +11,7 @@
         << __func__ << "\n\t\t" << __FILE__ << ":" << __LINE__ << "\n";        \
     llvm::errs().changeColor(llvm::raw_ostream::WHITE);                        \
   }
+// #define ISSNAKE_DUMP(Color) {}
 
 #define ISSNAKE_DUMP_RED ISSNAKE_DUMP(llvm::raw_ostream::RED)
 #define ISSNAKE_DUMP_GREEN ISSNAKE_DUMP(llvm::raw_ostream::GREEN)
@@ -17,5 +19,13 @@
 #define ISSNAKE_DUMP_CYAN ISSNAKE_DUMP(llvm::raw_ostream::CYAN)
 #define ISSNAKE_DUMP_MAGENTA ISSNAKE_DUMP(llvm::raw_ostream::MAGENTA)
 #define ISSNAKE_DUMP_WHITE ISSNAKE_DUMP(llvm::raw_ostream::WHITE)
+namespace llvm {
+class ISSnakeTargetMachine;
+class FunctionPass;
+
+FunctionPass *createISSnakeISelDag(ISSnakeTargetMachine &TM,
+                                   CodeGenOptLevel OptLevel);
+
+} // namespace llvm
 
 #endif // LLVM_LIB_TARGET_ISSnake_ISSnake_H

@@ -34,8 +34,13 @@ public:
   ISSnakePassConfig(ISSnakeTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  ISSnakeTargetMachine &getISSnakeTargetMachine() const {
+    return getTM<ISSnakeTargetMachine>();
+  }
+
   bool addInstSelector() override {
     ISSNAKE_DUMP_CYAN
+    addPass(createISSnakeISelDag(getISSnakeTargetMachine(), getOptLevel()));
     return false;
   }
 };
