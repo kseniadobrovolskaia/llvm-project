@@ -2,6 +2,7 @@
 #define LLVM_LIB_TARGET_ISSNAKE_ISSNAKESUBTARGET_H
 
 #include "ISSnake.h"
+#include "ISSnakeFrameLowering.h"
 #include "ISSnakeISelLowering.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
@@ -12,6 +13,7 @@ namespace llvm {
 
 class ISSnakeSubtarget : public ISSnakeGenSubtargetInfo {
   ISSnakeTargetLowering TLInfo;
+  ISSnakeFrameLowering FrameLowering;
 
 public:
   ISSnakeSubtarget(const Triple &TT, const std::string &CPU,
@@ -24,6 +26,11 @@ public:
   const ISSnakeTargetLowering *getTargetLowering() const override {
     ISSNAKE_DUMP_CYAN
     return &TLInfo;
+  }
+
+  const ISSnakeFrameLowering *getFrameLowering() const override {
+    ISSNAKE_DUMP_CYAN
+    return &FrameLowering;
   }
 };
 

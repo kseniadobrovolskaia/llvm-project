@@ -5,11 +5,13 @@
 #include "llvm/CodeGen/TargetFrameLowering.h"
 
 namespace llvm {
+class ISSnakeSubtarget;
 
 class ISSnakeFrameLowering : public TargetFrameLowering {
 public:
-  explicit ISSnakeFrameLowering()
-      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0) {
+  ISSnakeFrameLowering(const ISSnakeSubtarget &STI)
+      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0),
+        STI(STI) {
     ISSNAKE_DUMP_GREEN
   }
 
@@ -24,6 +26,9 @@ public:
   /// frame pointer register. For most targets this is true only if the function
   /// has variable sized allocas or if frame pointer elimination is disabled.
   bool hasFPImpl(const MachineFunction &MF) const override { return false; }
+
+private:
+  const ISSnakeSubtarget &STI;
 };
 
 } // namespace llvm

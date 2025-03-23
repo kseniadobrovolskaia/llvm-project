@@ -13,6 +13,7 @@ using namespace llvm;
 ISSnakeSubtarget::ISSnakeSubtarget(const Triple &TT, const std::string &CPU,
                                    const std::string &FS,
                                    const TargetMachine &TM)
-    : ISSnakeGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
+    : ISSnakeGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this),
+      FrameLowering(*this) {
   ISSNAKE_DUMP_CYAN
 }
