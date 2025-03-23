@@ -1,5 +1,6 @@
 add_llvm_component_library(LLVMISSnakeDesc
   ISSnakeMCTargetDesc.cpp
+  ISSnakeMCAsmInfo.cpp
 
   LINK_COMPONENTS
   MC
