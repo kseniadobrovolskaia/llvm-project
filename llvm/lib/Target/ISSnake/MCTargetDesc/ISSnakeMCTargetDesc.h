@@ -1,6 +1,8 @@
 #ifndef LLVM_LIB_TARGET_ISSNAKE_MCTARGETDESC_ISSNAKEMCTARGETDESC_H
 #define LLVM_LIB_TARGET_ISSNAKE_MCTARGETDESC_ISSNAKEMCTARGETDESC_H
 
+#include <memory>
+
 namespace llvm {
 class MCCodeEmitter;
 class MCContext;
@@ -18,6 +20,9 @@ MCAsmBackend *createISSnakeAsmBackend(const Target &T,
                                       const MCSubtargetInfo &STI,
                                       const MCRegisterInfo &MRI,
                                       const MCTargetOptions &Options);
+
+std::unique_ptr<MCObjectTargetWriter>
+createISSnakeELFObjectWriter(bool Is64Bit, uint8_t OSABI);
 } // namespace llvm
 
 // Defines symbolic names for ISSnake registers.  This defines a mapping from

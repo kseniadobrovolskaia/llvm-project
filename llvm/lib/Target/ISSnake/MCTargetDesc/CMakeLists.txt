@@ -4,6 +4,7 @@ add_llvm_component_library(LLVMISSnakeDesc
   ISSnakeInstPrinter.cpp
   ISSnakeMCCodeEmitter.cpp
   ISSnakeAsmBackend.cpp
+  ISSnakeELFObjectWriter.cpp
 
   LINK_COMPONENTS
   MC
