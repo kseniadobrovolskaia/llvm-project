@@ -79,4 +79,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeISSnakeTargetMC() {
   // Register the MCInstPrinter
   TargetRegistry::RegisterMCInstPrinter(TheISSnakeTarget,
                                         createISSnakeMCInstPrinter);
+  // Register the MC Code Emitter.
+  TargetRegistry::RegisterMCCodeEmitter(TheISSnakeTarget,
+                                        createISSnakeMCCodeEmitter);
 }

@@ -1,6 +1,15 @@
 #ifndef LLVM_LIB_TARGET_ISSNAKE_MCTARGETDESC_ISSNAKEMCTARGETDESC_H
 #define LLVM_LIB_TARGET_ISSNAKE_MCTARGETDESC_ISSNAKEMCTARGETDESC_H
 
+namespace llvm {
+class MCCodeEmitter;
+class MCContext;
+class MCInstrInfo;
+
+MCCodeEmitter *createISSnakeMCCodeEmitter(const MCInstrInfo &MCII,
+                                          MCContext &Ctx);
+} // namespace llvm
+
 // Defines symbolic names for ISSnake registers.  This defines a mapping from
 // register name to register number.
 
