@@ -53,3 +53,12 @@ let isAsCheapAsAMove = 1, isCodeGenOnly = 1, isReMaterializable = 1, r2 = 0 in
 def MOVLI : ISSnakeInst<0x22, (outs GPR:$r1), (ins ISSnakem16:$r3_imm),
                      "MOVli $r1 $r3_imm",
                      [(set GPR:$r1, ISSnakem16:$r3_imm)]>;
+
+// updatescreen
+let r1 = 0, r2 = 0, r3_imm = 0 in
+def UPDATESCREEN : ISSnakeInst<0xFF, (outs), (ins), "UPDATESCREEN", [(int_issnake_updatescreen)]>;
+
+// putpixel
+def PUTPIXEL : ISSnakeInst<0xEE, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
+                      "PUTPIXEL $r1 $r2 $r3_imm", [(int_issnake_putpixel GPR:$r1, GPR:$r2, GPR:$r3_imm)]>;
+
