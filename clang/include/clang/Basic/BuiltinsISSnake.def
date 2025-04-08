@@ -1,0 +1,4 @@
+BUILTIN(putPixel, "vUiUiUi", "nc")
+BUILTIN(updateScreen, "v", "nc")
+
+#undef BUILTIN
